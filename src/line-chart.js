@@ -26,13 +26,15 @@ class LineChart extends AbstractChart {
     } = config
     const output = []
     const datas = this.getDatas(data)
-    const baseHeight = this.calcBaseHeight(datas, height)
     data.map((dataset, index) => {
       dataset.data.map((x, i) => {
         const cx =
-          paddingRight + (i * (width - paddingRight)) / dataset.data.length
+          paddingRight / 2 + (i * (width - paddingRight)) / (dataset.data.length - 1)
         const cy =
-          (baseHeight - this.calcHeight(x, datas, height)) / 4 * 3 + paddingTop
+          (height / 4) *
+            3 *
+            (1 - (x - Math.min(...datas)) / this.calcScaler(datas)) +
+          paddingTop
         const onPress = () => {
           if (!onDataPointClick) {
             return
@@ -118,7 +120,7 @@ class LineChart extends AbstractChart {
     data.forEach((dataset, index) => {
       const points = dataset.data.map(
         (d, i) => {
-          const x  = (i * (width - paddingRight)) / dataset.data.length + paddingRight
+          const x  = (i * (width - paddingRight / 2)) / (dataset.data.length - 1)
           const y = (baseHeight -  this.calcHeight(d, datas, height)) / 4 * 3 + paddingTop
           return `${x},${y}`
         }
@@ -147,7 +149,7 @@ class LineChart extends AbstractChart {
     const datas = this.getDatas(data)
     const x = i =>
       Math.floor(
-        paddingRight + (i * (width - paddingRight)) / dataset.data.length
+        paddingRight / 2 + (i * (width - paddingRight)) / (dataset.data.length - 1)
       )
     const baseHeight = this.calcBaseHeight(datas, height)
     const y = i => {
@@ -195,7 +197,7 @@ class LineChart extends AbstractChart {
       const d =
         this.getBezierLinePoints(dataset, config) +
         ` L${paddingRight +
-          ((width - paddingRight) / dataset.data.length) *
+          ((width - paddingRight / 2) / (dataset.data.length - 1)) *
             (dataset.data.length - 1)},${(height / 4) * 3 +
           paddingTop} L${paddingRight},${(height / 4) * 3 + paddingTop} Z`
       output.push(

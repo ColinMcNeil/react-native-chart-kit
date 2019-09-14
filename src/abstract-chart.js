@@ -45,12 +45,12 @@ class AbstractChart extends Component {
       return (
         <Line
           key={Math.random()}
-          x1={paddingRight}
+          x1={paddingRight / 2}
           y1={(height / 4) * i + paddingTop}
-          x2={width}
+          x2={width - paddingRight / 2}
           y2={(height / 4) * i + paddingTop}
           stroke={this.props.chartConfig.color(0.2)}
-          strokeDasharray="5, 10"
+          // strokeDasharray="5, 10"
           strokeWidth={1}
         />
       )
@@ -67,7 +67,7 @@ class AbstractChart extends Component {
         x2={width}
         y2={height - height / 4 + paddingTop}
         stroke={this.props.chartConfig.color(0.2)}
-        strokeDasharray="5, 10"
+        //strokeDasharray="5, 10"
         strokeWidth={1}
       />
     )
@@ -100,7 +100,7 @@ class AbstractChart extends Component {
       return (
         <Text
           key={Math.random()}
-          x={paddingRight - yLabelsOffset}
+          x={paddingRight / 2 - yLabelsOffset}
           textAnchor="end"
           y={(height * 3) / 4 - ((height - paddingTop) / count) * i + 12}
           fontSize={12}
@@ -133,8 +133,8 @@ class AbstractChart extends Component {
         <Text
           key={Math.random()}
           x={
-            (((width - paddingRight) / labels.length) * i +
-              paddingRight +
+            (((width - paddingRight) / (labels.length - 1)) * i +
+              paddingRight / 2 +
               horizontalOffset) *
             fac
           }
@@ -156,15 +156,15 @@ class AbstractChart extends Component {
         <Line
           key={Math.random()}
           x1={Math.floor(
-            ((width - paddingRight) / data.length) * i + paddingRight
+            ((width - paddingRight) / (data.length - 1)) * i + paddingRight/2
           )}
           y1={0}
           x2={Math.floor(
-            ((width - paddingRight) / data.length) * i + paddingRight
+            ((width - paddingRight) / (data.length -1 )) * i + paddingRight/2
           )}
           y2={height - height / 4 + paddingTop}
           stroke={this.props.chartConfig.color(0.2)}
-          strokeDasharray="5, 10"
+          // strokeDasharray="5, 10"
           strokeWidth={1}
         />
       )
@@ -181,7 +181,7 @@ class AbstractChart extends Component {
         x2={Math.floor(paddingRight)}
         y2={height - height / 4 + paddingTop}
         stroke={this.props.chartConfig.color(0.2)}
-        strokeDasharray="5, 10"
+        // strokeDasharray="5, 10"
         strokeWidth={1}
       />
     )
