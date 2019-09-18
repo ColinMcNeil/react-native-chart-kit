@@ -74,7 +74,8 @@ class LineChart extends AbstractChart {
 
   renderShadow = config => {
     if (this.props.bezier) {
-      return this.renderBezierShadow(config)
+      return
+      //return this.renderBezierShadow(config)
     }
 
     const {data, width, height, paddingRight, paddingTop} = config
